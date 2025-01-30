@@ -1,0 +1,69 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.leftSection {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logoLink {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+}
+
+.appName {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2563eb;
+}
+
+.rightSection {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navLink {
+  text-decoration: none;
+  color: #4b5563;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  transition: all 0.2s;
+}
+
+.navLink:hover {
+  background-color: #f3f4f6;
+}
+
+.active {
+  color: #2563eb;
+  background-color: #eff6ff;
+}
+
+.logoutButton {
+  background-color: #2563eb;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.logoutButton:hover {
+  background-color: #1d4ed8;
+}
