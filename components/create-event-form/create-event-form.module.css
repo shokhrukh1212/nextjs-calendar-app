@@ -1,0 +1,102 @@
+.modal-form-container-modal {
+  padding: 1.5rem;
+}
+
+.modal-form-container-modal h2 {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.modal-form-container {
+  padding-top: 3rem;
+  width: 50%;
+  margin: auto;
+}
+
+.modal-form-container h2 {
+  font-size: 3rem;
+  text-align: center;
+}
+
+.modal-form-container-modal .form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.modal-form-container .form-group input {
+  width: 100%;
+  padding: 1.2rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+/*custom datetime picker styles*/
+.datetime-container {
+  width: 100%;
+}
+
+.custom-datetime-picker-modal {
+  font-size: 1.2rem;
+}
+
+.custom-datetime-picker {
+  font-size: 1.5rem;
+}
+
+.button-group-modal,
+.button-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 2rem;
+  cursor: pointer;
+}
+
+.button-group-modal button,
+.button-group button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.button-group button {
+  font-size: 1rem;
+}
+
+.button-group button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.button-group-modal .submit-button,
+.button-group .submit-button {
+  background-color: #2563eb;
+  color: white;
+}
+
+.button-group-modal.cancel-button,
+.button-group .cancel-button {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.error {
+  color: #d32f2f;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 5px;
+  padding-left: 5px;
+  display: block;
+  background: #fdecea;
+  border-left: 4px solid #d32f2f;
+  padding: 6px 10px;
+  border-radius: 4px;
+}

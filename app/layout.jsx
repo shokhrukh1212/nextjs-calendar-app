@@ -1,8 +1,7 @@
 import NavMenu from "@/components/nav-menu/nav-menu";
 import SessionProvider from "@/components/session-provider/session-provider";
 import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
-import styles from "./layout.module.css";
+import "./globals.css";
 
 export const metadata = {
   title: "Create Your Events with Ease",
@@ -17,7 +16,7 @@ export default async function RootLayout({ children }) {
       <body>
         <SessionProvider session={session}>
           <NavMenu />
-          <main className={styles.container}>{children}</main>
+          <main>{children}</main>
         </SessionProvider>
       </body>
     </html>

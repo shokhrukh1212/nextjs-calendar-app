@@ -1,7 +1,5 @@
+import CalendarEventPage from "@/components/calendar-event/calendar-event";
+
 export default function DashboardPage() {
-  return (
-    <div>
-      <h1>Dashboard</h1>
-    </div>
-  );
+  return <CalendarEventPage />;
 }

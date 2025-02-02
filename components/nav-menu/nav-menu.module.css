@@ -7,13 +7,13 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.leftSection {
+.left-section {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
-.logoLink {
+.logo-link {
   display: flex;
   align-items: center;
   text-decoration: none;
@@ -24,19 +24,19 @@
   height: 40px;
 }
 
-.appName {
+.app-name {
   font-size: 1.5rem;
   font-weight: 600;
   color: #2563eb;
 }
 
-.rightSection {
+.right-section {
   display: flex;
   align-items: center;
   gap: 2rem;
 }
 
-.navLink {
+.nav-link {
   text-decoration: none;
   color: #4b5563;
   font-weight: 500;
@@ -45,7 +45,7 @@
   transition: all 0.2s;
 }
 
-.navLink:hover {
+.nav-link:hover {
   background-color: #f3f4f6;
 }
 
@@ -54,7 +54,7 @@
   background-color: #eff6ff;
 }
 
-.logoutButton {
+.logout-button {
   background-color: #2563eb;
   color: white;
   padding: 0.5rem 1rem;
@@ -64,6 +64,6 @@
   transition: background-color 0.2s;
 }
 
-.logoutButton:hover {
+.logout-button:hover {
   background-color: #1d4ed8;
 }
