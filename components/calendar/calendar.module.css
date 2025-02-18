@@ -172,7 +172,7 @@
 
 .calendar .body .cell .bg {
   font-weight: 700;
-  line-height: 1;
+  line-height: 1.2;
   color: var(--main-color);
   opacity: 0;
   font-size: 8em;
@@ -193,4 +193,30 @@
   flex-grow: 0;
   flex-basis: calc(100% / 7);
   width: calc(100% / 7);
+}
+
+.tile-events {
+  width: 100%;
+  flex-grow: 1;
+  padding: 2px;
+  padding-top: 1.5rem;
+  position: relative;
+}
+
+.event-item {
+  display: flex;
+  font-size: 0.8rem;
+  margin: 2px 0;
+  padding: 2px;
+  background: #e2e8f0;
+  border-radius: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.event-time {
+  font-weight: 500;
+  color: #2563eb;
+  margin-right: 4px;
 }

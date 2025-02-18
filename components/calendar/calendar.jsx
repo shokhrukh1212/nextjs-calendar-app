@@ -12,26 +12,12 @@ import endOfMonth from "date-fns/endOfMonth";
 import endOfWeek from "date-fns/endOfWeek";
 import { useState } from "react";
 import classes from "./calendar.module.css";
+import { formatSelectedDate } from "@/lib/date-format";
 
-// Events will be fetched from database later
-const events = {
-  "2025-02-28": [
-    { id: 1, title: "Team Meeting", time: "10:00 AM" },
-    { id: 2, title: "Client Call", time: "02:30 PM" },
-    { id: 3, title: "Review Docs", time: "04:00 PM" },
-  ],
-  "2025-02-18": [
-    { id: 4, title: "Team Meeting", time: "10:00 AM" },
-    { id: 5, title: "Client Call", time: "02:30 PM" },
-  ],
-  "2025-03-10": [
-    { id: 6, title: "Team Meeting", time: "10:00 AM" },
-    { id: 7, title: "Client Call", time: "02:30 PM" },
-  ],
-};
-
-export const Calendar = ({ onClickDay, selectedDate }) => {
+export const Calendar = ({ onClickDay, data, isLoading }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
+
+  if (isLoading) return <div>Loading...</div>;
 
   const nextMonth = () => {
     setCurrentMonth(addMonths(currentMonth, 1));
@@ -107,39 +93,43 @@ export const Calendar = ({ onClickDay, selectedDate }) => {
     while (day <= endDate) {
       for (let i = 0; i < 7; i++) {
         formattedDate = format(day, dateFormat);
-        console.log("formattedDate - ", formattedDate);
         const cloneDay = day;
 
         const isPast = day < today.setHours(0, 0, 0, 0);
 
-        const isDateExist = Object.keys(events).find((e) =>
-          isSameDay(new Date(e), day)
+        const dateIndex = data?.findIndex(
+          (item) => item.date === formatSelectedDate(day)
         );
+
         let filteredEvents = [];
 
-        if (isDateExist) filteredEvents = events[isDateExist];
-
-        console.log("filteredEvents - ", filteredEvents);
+        if (dateIndex !== -1 && dateIndex !== undefined)
+          filteredEvents = data[dateIndex]?.events || [];
 
         days.push(
           <div
+            key={day.toISOString()}
             className={`${classes.col} ${classes.cell} ${
               !isSameMonth(day, monthStart) ? classes.disabled : ""
-            } ${isSameDay(day, selectedDate) ? classes.selected : ""}
+            } ${isSameDay(day, new Date()) ? classes.selected : ""}
             ${isPast ? classes.disabled : ""}`}
-            key={day.toISOString()}
-            onClick={() => !isPast && onClickDay(cloneDay)}
+            onClick={() => onClickDay(cloneDay)}
           >
             <span className={classes.number}>{formattedDate}</span>
             <span className={classes.bg}>{formattedDate}</span>
 
             {filteredEvents.length > 0 && (
-              <div className="tile-events">
-                {filteredEvents.map((event) => {
+              <div className={classes["tile-events"]}>
+                {filteredEvents.map((event, index) => {
                   return (
-                    <div key={event.id} className="event-item">
-                      <div className="event-time">{event.time}</div>
-                      <div className="event-title">{event.title}</div>
+                    <div
+                      key={`event-${index}`}
+                      className={classes["event-item"]}
+                    >
+                      <div className={classes["event-time"]}>{event.time}</div>
+                      <div className={classes["event-title"]}>
+                        {event.title}
+                      </div>
                     </div>
                   );
                 })}
@@ -150,7 +140,7 @@ export const Calendar = ({ onClickDay, selectedDate }) => {
         day = addDays(day, 1);
       }
       rows.push(
-        <div className={classes.row} key={day}>
+        <div className={classes.row} key={day.toISOString()}>
           {days}
         </div>
       );

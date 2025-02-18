@@ -2,29 +2,33 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import useSWR from "swr";
 import styles from "./calendar-event.module.css";
 import CreateEventModal from "../modal/create-event-modal";
 import { formatSelectedDate } from "@/lib/date-format";
 import { Calendar } from "../calendar/calendar";
 
+const fetcher = (url) => fetch(url).then((r) => r.json());
+
 const CalendarEventPage = () => {
   const [showModal, setShowModal] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(null);
+  const { data, isLoading } = useSWR("/api/get-tasks", fetcher);
   const router = useRouter();
 
   const handleDayClick = (date) => {
     const formattedDate = formatSelectedDate(date);
-    if (formattedDate === selectedDate) {
-      setShowModal(false);
+    const formattedSelectedDate = formatSelectedDate(selectedDate);
+    if (formattedDate === formattedSelectedDate) {
       setTimeout(() => {
-        setShowModal(true);
         router.push(`/dashboard/${formattedDate}`, {
           scroll: false,
         });
+        setShowModal(true);
       }, 0);
       return;
     }
-    setSelectedDate(formattedDate);
+    setSelectedDate(date);
     router.push(`/dashboard/${formattedDate}`, {
       scroll: false,
     });
@@ -47,7 +51,11 @@ const CalendarEventPage = () => {
       </div>
 
       <div className={styles["calendar-container"]}>
-        <Calendar onClickDay={handleDayClick} selectedDate={selectedDate} />
+        <Calendar
+          onClickDay={handleDayClick}
+          data={data}
+          isLoading={isLoading}
+        />
       </div>
 
       {showModal && (

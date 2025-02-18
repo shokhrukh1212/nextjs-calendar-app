@@ -5,12 +5,13 @@ import { createEvent } from "@/actions/create-event";
 import styles from "./create-event-form.module.css";
 import DateTimePicker from "react-datetime-picker";
 import "react-datetime-picker/dist/DateTimePicker.css";
-import "react-calendar/dist/Calendar.css";
 import "react-clock/dist/Clock.css";
+import { mutate } from "swr";
 
 const CreateEventForm = ({
   defaultDate,
   setShowModal = () => {},
+  setShowFromParentModal = () => {},
   handleModalClose = null,
   isModal = false,
 }) => {
@@ -23,8 +24,12 @@ const CreateEventForm = ({
 
   useEffect(() => {
     if (state?.success) {
-      setShowModal(false);
-      router.push("/dashboard");
+      setTimeout(() => {
+        mutate("/api/get-tasks");
+        router.push("/dashboard");
+        setShowModal(false);
+        setShowFromParentModal(false);
+      }, 2000);
     }
   }, [state?.success, router]);
 
@@ -59,7 +64,9 @@ const CreateEventForm = ({
           placeholder="Event title"
         />
         {state?.errors?.title && (
-          <p className={styles.error}>{state?.errors?.title}</p>
+          <p className={isModal ? styles["error-modal"] : styles["error"]}>
+            {state?.errors?.title}
+          </p>
         )}
 
         <input
@@ -71,7 +78,9 @@ const CreateEventForm = ({
           placeholder="Event description"
         />
         {state?.errors?.description && (
-          <p className={styles.error}>{state?.errors?.description}</p>
+          <p className={isModal ? styles["error-modal"] : styles["error"]}>
+            {state?.errors?.description}
+          </p>
         )}
       </div>
 
@@ -81,6 +90,7 @@ const CreateEventForm = ({
           value={selectedDate}
           name="event-date"
           format="MM/dd/yyyy h:mm a"
+          minDate={new Date()}
           clearIcon="✖"
           calendarIcon="📅"
           className={
@@ -90,9 +100,23 @@ const CreateEventForm = ({
           }
         />
         {state?.errors?.date && (
-          <p className={styles.error}>{state?.errors?.date}</p>
+          <p className={isModal ? styles["error-modal"] : styles["error"]}>
+            {state?.errors?.date}
+          </p>
         )}
       </div>
+
+      {state?.error && (
+        <p className={isModal ? styles["error-modal"] : styles["error"]}>
+          {state?.error}
+        </p>
+      )}
+
+      {state?.message && (
+        <p className={isModal ? styles["success-modal"] : styles["success"]}>
+          {state?.message}
+        </p>
+      )}
 
       <div
         className={

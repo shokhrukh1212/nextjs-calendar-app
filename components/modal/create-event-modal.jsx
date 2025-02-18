@@ -8,7 +8,7 @@ import CreateEventForm from "../create-event-form/create-event-form";
 const CreateEventModal = ({
   defaultDate = new Date(),
   isModalActive = false,
-  setCloseModal = null,
+  setCloseModal = () => {},
 }) => {
   const [showModal, setShowModal] = useState(isModalActive);
 
@@ -23,8 +23,8 @@ const CreateEventModal = ({
       {showModal && (
         <Modal onClose={handleModalClose}>
           <CreateEventForm
-            key={defaultDate.toISOString()}
             setShowModal={setShowModal}
+            setShowFromParentModal={setCloseModal}
             defaultDate={defaultDate}
             handleModalClose={handleModalClose}
             isModal={true}
