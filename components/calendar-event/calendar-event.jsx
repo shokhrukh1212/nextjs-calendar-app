@@ -2,18 +2,14 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import useSWR from "swr";
 import styles from "./calendar-event.module.css";
 import CreateEventModal from "../modal/create-event-modal";
 import { formatSelectedDate } from "@/lib/date-format";
 import { Calendar } from "../calendar/calendar";
 
-const fetcher = (url) => fetch(url).then((r) => r.json());
-
-const CalendarEventPage = () => {
+const CalendarEventPage = ({ data, isLoading }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
-  const { data, isLoading } = useSWR("/api/get-tasks", fetcher);
   const router = useRouter();
 
   const handleDayClick = (date) => {

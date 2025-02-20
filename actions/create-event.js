@@ -1,6 +1,7 @@
 "use server";
 
 import clientPromise from "@/lib/mongodb";
+import { revalidatePath } from "next/cache";
 
 export async function createEvent(prevState, formData) {
   try {
@@ -40,16 +41,6 @@ export async function createEvent(prevState, formData) {
     const dateWithoutTime = date.split("T")[0];
     const time = date.split("T")[1];
 
-    // checking if there are already 3 events for the day
-    const existingDay = await collection.findOne({ date: dateWithoutTime });
-
-    if (existingDay && existingDay.events.length >= 3) {
-      return {
-        success: false,
-        error: "You can only have up to 3 events per day",
-      };
-    }
-
     const newEvent = {
       title,
       description,
@@ -61,6 +52,7 @@ export async function createEvent(prevState, formData) {
       { $push: { events: newEvent } },
       { upsert: true }
     );
+    revalidatePath("/dashboard");
 
     return {
       success: true,

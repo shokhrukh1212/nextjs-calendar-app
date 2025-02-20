@@ -131,6 +131,7 @@
   background: var(--neutral-color);
   transition: 0.25s ease-out;
   box-sizing: border-box;
+  padding-top: 1.5rem;
 }
 
 .calendar .body .cell:hover {
@@ -197,10 +198,11 @@
 
 .tile-events {
   width: 100%;
+  height: 75%;
   flex-grow: 1;
   padding: 2px;
-  padding-top: 1.5rem;
   position: relative;
+  overflow: auto;
 }
 
 .event-item {
@@ -210,13 +212,16 @@
   padding: 2px;
   background: #e2e8f0;
   border-radius: 3px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .event-time {
   font-weight: 500;
   color: #2563eb;
   margin-right: 4px;
+}
+
+.event-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

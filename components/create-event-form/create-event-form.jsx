@@ -6,7 +6,6 @@ import styles from "./create-event-form.module.css";
 import DateTimePicker from "react-datetime-picker";
 import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-clock/dist/Clock.css";
-import { mutate } from "swr";
 
 const CreateEventForm = ({
   defaultDate,
@@ -25,7 +24,6 @@ const CreateEventForm = ({
   useEffect(() => {
     if (state?.success) {
       setTimeout(() => {
-        mutate("/api/get-tasks");
         router.push("/dashboard");
         setShowModal(false);
         setShowFromParentModal(false);
