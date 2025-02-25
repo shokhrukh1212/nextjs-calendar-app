@@ -14,10 +14,8 @@ import { useState } from "react";
 import classes from "./calendar.module.css";
 import { formatSelectedDate } from "@/lib/date-format";
 
-export const Calendar = ({ onClickDay, data, isLoading }) => {
+export const Calendar = ({ onClickDay, data }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
-
-  if (isLoading) return <div>Loading...</div>;
 
   const nextMonth = () => {
     setCurrentMonth(addMonths(currentMonth, 1));

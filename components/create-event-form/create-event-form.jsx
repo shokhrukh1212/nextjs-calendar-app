@@ -1,16 +1,15 @@
 "use client";
 import { useActionState, useEffect, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
 import { createEvent } from "@/actions/create-event";
 import styles from "./create-event-form.module.css";
 import DateTimePicker from "react-datetime-picker";
 import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-clock/dist/Clock.css";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const CreateEventForm = ({
   defaultDate,
-  setShowModal = () => {},
-  setShowFromParentModal = () => {},
   handleModalClose = null,
   isModal = false,
 }) => {
@@ -19,27 +18,19 @@ const CreateEventForm = ({
   const [selectedDate, setSelectedDate] = useState(new Date(defaultDate));
   const [state, action, isPending] = useActionState(createEvent, null);
   const router = useRouter();
-  const pathname = usePathname();
 
   useEffect(() => {
     if (state?.success) {
-      setTimeout(() => {
-        router.push("/dashboard");
-        setShowModal(false);
-        setShowFromParentModal(false);
-      }, 2000);
-    }
-  }, [state?.success, router]);
+      if (isModal) handleModalClose();
+      else router.back();
 
-  useEffect(() => {
-    if (!isModal && pathname === "/dashboard") {
-      router.push("/dashboard");
+      toast.success("Event created successfully");
     }
-  }, [isModal, pathname]);
+  }, [state?.success]);
 
   const handleCancelClick = () => {
     if (isModal) handleModalClose();
-    else router.push("/dashboard");
+    else router.back();
   };
 
   return (
@@ -107,12 +98,6 @@ const CreateEventForm = ({
       {state?.error && (
         <p className={isModal ? styles["error-modal"] : styles["error"]}>
           {state?.error}
-        </p>
-      )}
-
-      {state?.message && (
-        <p className={isModal ? styles["success-modal"] : styles["success"]}>
-          {state?.message}
         </p>
       )}
 

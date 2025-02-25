@@ -56,7 +56,6 @@ export async function createEvent(prevState, formData) {
 
     return {
       success: true,
-      message: "Event created successfully",
     };
   } catch (error) {
     return {

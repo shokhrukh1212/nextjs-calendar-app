@@ -1,36 +1,28 @@
 "use client";
 
-import { useState } from "react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Modal from "./modal";
 import CreateEventForm from "../create-event-form/create-event-form";
 
-const CreateEventModal = ({
-  defaultDate = new Date(),
-  isModalActive = false,
-  setCloseModal = () => {},
-}) => {
-  const [showModal, setShowModal] = useState(isModalActive);
+const CreateEventModal = ({ defaultDate = new Date(), setShowModal }) => {
+  const router = useRouter();
 
   const handleModalClose = () => {
-    if (setCloseModal) setCloseModal(false);
-    setShowModal(false);
-    redirect("/dashboard");
+    // if modal opens after clicking a button
+    if (setShowModal) setShowModal(false);
+    // if modal opens after clicking a day, as an intercepting route
+    else router.back();
   };
 
   return (
     <>
-      {showModal && (
-        <Modal onClose={handleModalClose}>
-          <CreateEventForm
-            setShowModal={setShowModal}
-            setShowFromParentModal={setCloseModal}
-            defaultDate={defaultDate}
-            handleModalClose={handleModalClose}
-            isModal={true}
-          />
-        </Modal>
-      )}
+      <Modal onClose={handleModalClose}>
+        <CreateEventForm
+          defaultDate={defaultDate}
+          handleModalClose={handleModalClose}
+          isModal={true}
+        />
+      </Modal>
     </>
   );
 };
