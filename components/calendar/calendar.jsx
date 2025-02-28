@@ -4,7 +4,9 @@ import addMonths from "date-fns/addMonths";
 import subMonths from "date-fns/subMonths";
 import { useState } from "react";
 import classes from "./calendar.module.css";
-import { renderCells, renderDays, renderHeader } from "@/lib/calendar-utils";
+import { CalendarHeader } from "./calendar-header";
+import { CalendarDays } from "./calendar-days";
+import { CalendarCells } from "./calendar-cells";
 
 export const Calendar = ({ onClickDay, data }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -18,9 +20,17 @@ export const Calendar = ({ onClickDay, data }) => {
 
   return (
     <div className={classes.calendar}>
-      {renderHeader(prevMonth, nextMonth, currentMonth)}
-      {renderDays(currentMonth)}
-      {renderCells(onClickDay, data, currentMonth)}
+      <CalendarHeader
+        prevMonth={() => prevMonth()}
+        nextMonth={() => nextMonth()}
+        currentMonth={currentMonth}
+      />
+      <CalendarDays currentMonth={currentMonth} />
+      <CalendarCells
+        onClickDay={onClickDay}
+        data={data}
+        currentMonth={currentMonth}
+      />
     </div>
   );
 };
