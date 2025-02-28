@@ -12,7 +12,7 @@ export async function GET() {
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    return new Response(JSON.stringify({ error: "Failed to fetch events" }), {
+    return new Response(JSON.stringify({ message: "Failed to fetch events" }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
     });

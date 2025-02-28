@@ -38,7 +38,7 @@ const CalendarEventPage = ({ data }) => {
         <Calendar onClickDay={handleDayClick} data={data} />
       </div>
 
-      {showModal && <CreateEventModal setShowModal={setShowModal} />}
+      {showModal && <CreateEventModal onClose={() => setShowModal(false)} />}
     </div>
   );
 };

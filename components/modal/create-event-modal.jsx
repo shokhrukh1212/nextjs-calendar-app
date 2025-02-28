@@ -1,27 +1,37 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import Modal from "./modal";
 import CreateEventForm from "../create-event-form/create-event-form";
+import * as styles from "./create-event-modal.module.css";
+import { useRouter } from "next/navigation";
 
-const CreateEventModal = ({ defaultDate = new Date(), setShowModal }) => {
+const CreateEventModal = ({ defaultDate = new Date(), onClose }) => {
   const router = useRouter();
 
-  const handleModalClose = () => {
-    // if modal opens after clicking a button
-    if (setShowModal) setShowModal(false);
-    // if modal opens after clicking a day, as an intercepting route
-    else router.back();
+  const handleClose = () => {
+    // If used after clicking the create event button
+    if (onClose) return onClose();
+    // If used in intercepting route
+    router.back();
   };
 
   return (
     <>
-      <Modal onClose={handleModalClose}>
-        <CreateEventForm
-          defaultDate={defaultDate}
-          handleModalClose={handleModalClose}
-          isModal={true}
-        />
+      <Modal onClose={handleClose}>
+        <CreateEventForm defaultDate={defaultDate} isModal={true} />
+
+        <div className={styles["button-group-modal"]}>
+          <button
+            type="button"
+            onClick={handleClose}
+            className={styles["cancel-button"]}
+          >
+            Cancel
+          </button>
+          <button className={styles["submit-button"]} form="event-form">
+            Create Event
+          </button>
+        </div>
       </Modal>
     </>
   );

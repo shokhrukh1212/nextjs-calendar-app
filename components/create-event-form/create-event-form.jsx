@@ -8,33 +8,23 @@ import "react-clock/dist/Clock.css";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
-const CreateEventForm = ({
-  defaultDate,
-  handleModalClose = null,
-  isModal = false,
-}) => {
+const CreateEventForm = ({ defaultDate, isModal = false }) => {
   const [eventTitle, setEventTitle] = useState("");
   const [eventDescription, setEventDescription] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date(defaultDate));
-  const [state, action, isPending] = useActionState(createEvent, null);
+  const [state, action] = useActionState(createEvent, null);
   const router = useRouter();
 
   useEffect(() => {
     if (state?.success) {
-      if (isModal) handleModalClose();
-      else router.back();
-
+      router.back();
       toast.success("Event created successfully");
     }
   }, [state?.success]);
 
-  const handleCancelClick = () => {
-    if (isModal) handleModalClose();
-    else router.back();
-  };
-
   return (
     <form
+      id="event-form"
       action={action}
       className={
         isModal
@@ -100,24 +90,6 @@ const CreateEventForm = ({
           {state?.error}
         </p>
       )}
-
-      <div
-        className={
-          isModal ? styles["button-group-modal"] : styles["button-group"]
-        }
-      >
-        <button
-          type="button"
-          onClick={handleCancelClick}
-          className={styles["cancel-button"]}
-          disabled={isPending}
-        >
-          Cancel
-        </button>
-        <button className={styles["submit-button"]} disabled={isPending}>
-          {isPending ? "Creating..." : " Create Event"}
-        </button>
-      </div>
     </form>
   );
 };
