@@ -7,24 +7,12 @@ import CreateEventModal from "../modal/create-event-modal";
 import { formatSelectedDate } from "@/lib/date-format";
 import { Calendar } from "../calendar/calendar";
 
-const CalendarEventPage = () => {
+const CalendarEventPage = ({ data }) => {
   const [showModal, setShowModal] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(new Date());
   const router = useRouter();
 
   const handleDayClick = (date) => {
     const formattedDate = formatSelectedDate(date);
-    if (formattedDate === selectedDate) {
-      setShowModal(false);
-      setTimeout(() => {
-        setShowModal(true);
-        router.push(`/dashboard/${formattedDate}`, {
-          scroll: false,
-        });
-      }, 0);
-      return;
-    }
-    setSelectedDate(formattedDate);
     router.push(`/dashboard/${formattedDate}`, {
       scroll: false,
     });
@@ -47,15 +35,10 @@ const CalendarEventPage = () => {
       </div>
 
       <div className={styles["calendar-container"]}>
-        <Calendar onClickDay={handleDayClick} selectedDate={selectedDate} />
+        <Calendar onClickDay={handleDayClick} data={data} />
       </div>
 
-      {showModal && (
-        <CreateEventModal
-          isModalActive={showModal}
-          setCloseModal={setShowModal}
-        />
-      )}
+      {showModal && <CreateEventModal onClose={() => setShowModal(false)} />}
     </div>
   );
 };
