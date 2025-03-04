@@ -202,7 +202,11 @@
   flex-grow: 1;
   padding: 2px;
   position: relative;
-  overflow: auto;
+  /* overflow: auto; */
+}
+
+.more-events:hover {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .event-item {
@@ -224,4 +228,36 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-weight: bold;
+}
+
+.more-events {
+  padding: 0 2px;
+  transition: background-color 1s;
+  border-radius: 3px;
+}
+
+.modal-container {
+  background-color: #fff;
+  padding: 10px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.modal-title {
+  padding-left: 10px;
+  font-weight: 300;
+}
+
+.modal-event {
+  margin-bottom: 5px;
+}
+
+.modal-event-time {
+  margin-right: 5px;
+  font-weight: 400;
+}
+
+.modal-event-title {
+  font-weight: bold;
 }

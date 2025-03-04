@@ -1,9 +1,21 @@
 import styles from "./modal.module.css";
 
-const Modal = ({ children, onClose }) => {
+const Modal = ({ children, onClose, isMoreEventsModal = false }) => {
   return (
-    <div className={styles["modal-overlay"]}>
-      <div className={styles["modal-content"]}>
+    <div
+      className={
+        isMoreEventsModal
+          ? styles["more-events-modal-overlay"]
+          : styles["modal-overlay"]
+      }
+    >
+      <div
+        className={
+          isMoreEventsModal
+            ? styles["more-events-modal-content"]
+            : styles["modal-content"]
+        }
+      >
         <button className={styles["close-button"]} onClick={onClose}>
           &times;
         </button>

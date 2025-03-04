@@ -1,4 +1,5 @@
-.modal-overlay {
+.modal-overlay,
+.more-events-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -11,13 +12,24 @@
   z-index: 1000;
 }
 
-.modal-content {
+.more-events-modal-overlay {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.modal-content,
+.more-events-modal-content {
   background-color: white;
   padding: 2rem;
   border-radius: 0.5rem;
   position: relative;
   max-width: 500px;
-  width: 90%;
+  width: 80%;
+}
+
+.more-events-modal-content {
+  border-radius: 3px;
+  background-color: #dfdae3;
+  padding: 0;
 }
 
 .close-button {
